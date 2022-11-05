@@ -1,0 +1,35 @@
+export default {
+    type:'document',
+    name:'portals',
+    title:'Portals',
+    fields:[
+    {
+        type:'string',
+        name:'pname',
+        title:'Portal Name',  
+    },
+    {
+        type:'createdby',
+        name:'createdby',
+        title:'Creator',  
+    },
+    {
+        type:'array',
+        name:'admins',
+        title:'Admins',  
+        of:[{type:'user'}]
+    },
+    {
+        type:'array',
+        name:'members',
+        title:'Members',  
+        of:[{type:'member'}]
+    },
+    {
+        type:'array',
+        name:'fields',
+        title:'Fields',  
+        of:[{type:'field'}]
+    },
+    ]
+}
