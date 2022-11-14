@@ -1,9 +1,31 @@
 import React from 'react'
 import { AiFillFilePdf } from 'react-icons/ai';
 import { MdDelete } from "react-icons/md";
+import { useParams } from 'react-router-dom';
+import { client } from '../client';
 
 
 const Contentcard = ({d,controlsauth}) => {
+    const {portalid} = useParams()
+
+    const handledel= (id,docid) =>{
+        const confirmation = confirm('Are You Sure You Want Delete This Document')
+        if(confirmation){
+         client
+         .patch(portalid)
+         .unset([`docs[_ref=="${id}" ]`])
+         .commit()
+         .then((res) => {
+           alert('Your Doc Will Be Deleted Soon')
+            client.delete(id).then(()=>{
+             client.delete(docid).then(()=>{
+               window.location.reload()
+             })
+            })
+         });
+        }
+   }
+
   return (
     <>
       <div

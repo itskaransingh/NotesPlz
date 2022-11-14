@@ -9,6 +9,7 @@ import { client } from "../client";
 import {  useNavigate, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { docQuery } from "../utils/sanityqueries";
+import Loader from "./Loader";
 
 
 const Contentcreater = ({parentidff,setparentidff,controlsauth,setAlldocs,settoggle}) => {
@@ -19,6 +20,8 @@ const Contentcreater = ({parentidff,setparentidff,controlsauth,setAlldocs,settog
   const [isallfieldsfilled, setIsallfieldsfilled] = useState(true)
   const [title, settitle] = useState('')
   const [caption, setCaption] = useState('')
+  const [loading, setLoading] = useState(false)
+
   
 
 const {portalid} = useParams()
@@ -26,23 +29,26 @@ const navigate = useNavigate()
 
 
   const filefetching = (e) => {
+    setLoading(true)
     const { type, name } = e.target.files[0];
     client.assets
       .upload("file", e.target.files[0], { contentType: type, filename: name })
       .then((res) => {
         setUploadeddoc(res)
-        console.log(res);
+        setLoading(false)
   });
   };
 
 
   const imgfetching = (e) => {
+    setLoading(true)
     const { type, name } = e.target.files[0];
     client.assets
       .upload("image", e.target.files[0], { contentType: type, filename: name })
       .then((res) => {
         setUploadedimg(res)
-        console.log(res);
+    setLoading(false)
+
   });
   };
 
@@ -53,7 +59,7 @@ const docupload = () =>{
         setTimeout(()=>{setIsbothfilled(false)},5000)
     }
     else if(uploadeddoc != null && caption != '' && title != ''){
-      console.log(uploadeddoc);
+    setLoading(true)
            const doc = {
             _key:uuidv4(),
             _type:'doc',
@@ -78,13 +84,17 @@ const docupload = () =>{
             }]).commit().then((res)=>{
               client.fetch(docQuery(parentidff,res?._id)).then((resp)=>{
                 setAlldocs(resp)
+    setLoading(false)
+                  
+                navigate('../')
               })
             })
-             navigate('../')
-            console.log(resp)
+
     })
     }
     else if(uploadedimg != null && caption != '' && title != ''){
+    setLoading(true)
+
       const doc = {
         _key:uuidv4(),
         _type:'doc',
@@ -109,11 +119,10 @@ const docupload = () =>{
         }]).commit().then((res)=>{
           client.fetch(docQuery(parentidff,res?._id)).then((resp)=>{
             setAlldocs(resp)
+    setLoading(false)
+            navigate('../')
           })
         })
-        navigate('../')
-
-        console.log(resp)
 })
 
     }
@@ -124,10 +133,10 @@ const docupload = () =>{
 }
 
   return (
-    <div className="flex-[0.7]">
-      <div className="flex flex-col justify-center items-center my-5">
+    <div className="flex-[0.7] dark:bg-[#182747]">
+      <div className="flex flex-col justify-center items-center py-5">
         <div className="flex flex-row justify-between w-[90%] items-center mb-5"> 
-          <div onClick={()=>{navigate('../')}}>
+          <div className="dark:text-[#7992cb]" onClick={()=>{navigate('../')}}>
           <BiArrowBack fontSize={25}/>
           </div>
         <div className="flex justify-center items-center   ">
@@ -159,13 +168,13 @@ const docupload = () =>{
         </div>
           {!isallfieldsfilled && <div className="text-red-500 text-xl pb-2 font-semibold">Plz Fill All Fields</div>}
           {isbothfilled && <div className="text-red-500 text-center pb-2 text-xl font-semibold">You Can Upload Only One Type Of Document At A Time</div>}
-        <div className="flex justify-center items-center h-96 md:cursor-pointer md:w-[65%] border-2 w-[90%] rounded-lg bg-white">
+        <div className="flex justify-center dark:text-white dark:bg-[#181818] dark:border-[#30426b] items-center h-96 md:cursor-pointer md:w-[65%] border-2 w-[90%] rounded-lg bg-white">
           {" "}
           {isfile ? (
             uploadeddoc == null ? (
-              <label htmlFor="img" className="w-full md:cursor-pointer ">
-                <div className="flex flex-col gap-3">
-                  <div className="flex flex-col justify-center items-center  ">
+              <label htmlFor="img" className="w-full  md:cursor-pointer ">
+              {!loading ?    <div className="flex flex-col  gap-3">
+                 <div className="flex flex-col justify-center items-center  ">
                     <div className="text-gray-500">
                       <MdOutlineUploadFile fontSize={100} />
                     </div>
@@ -186,6 +195,9 @@ const docupload = () =>{
                     id="img"
                   />
                 </div>
+                :<div className='text-4xl text-center '>
+                <Loader beat  />
+                </div>}
               </label>
             ) : (
               <div className="w-full flex-col py-3 h-full flex justify-center items-center ">
@@ -209,7 +221,7 @@ const docupload = () =>{
           ) : (
             uploadedimg == null ? (
               <label htmlFor="img" className="w-full md:cursor-pointer">
-                <div className="flex flex-col gap-3">
+                { !loading ? <div className="flex flex-col gap-3">
                   <div className="flex flex-col justify-center items-center  ">
                     <div className="text-gray-500">
                       <BsCardImage fontSize={100} />
@@ -227,7 +239,9 @@ const docupload = () =>{
                     name=""
                     id="img"
                   />
-                </div>
+                </div>:<div className='text-4xl text-center'>
+                  <Loader beat  />
+                  </div>}
               </label>
             ) : (
               <div className="w-full  h-full flex justify-center items-center ">
@@ -253,7 +267,7 @@ const docupload = () =>{
     }
         </div>
         <div className="flex flex-col md:w-[65%]  w-[90%] mt-2 gap-2">
-        <label htmlFor="title" className="text-lg font-semibold">
+        <label htmlFor="title" className="text-lg dark:text-[#AAAAAA]   font-semibold">
           Title
         </label>
         <input
@@ -261,11 +275,11 @@ const docupload = () =>{
           name=""
           id="title"
           onChange={(e) => settitle(e.target.value)}
-          className="text-lg p-2 outline-none border rounded-lg"
+          className="text-lg p-2 dark:border-[#30426b] dark:text-[#AAAAAA] pl-4 dark:bg-[#181818] outline-none border rounded-lg"
         />
       </div>
         <div className="flex flex-col md:w-[65%]  w-[90%] my-9 gap-2">
-          <label htmlFor="caption" className="text-lg font-semibold">
+          <label htmlFor="caption" className="text-lg dark:text-[#AAAAAA]  font-semibold">
             Caption
           </label>
           <input
@@ -273,7 +287,7 @@ const docupload = () =>{
             name=""
             id="caption"
             onChange={(e) => setCaption(e.target.value)}
-            className="text-lg p-2 outline-none rounded-lg border"
+            className="text-lg dark:border-[#30426b] dark:text-[#AAAAAA] pl-4 dark:bg-[#181818] p-2 outline-none rounded-lg border"
           />
         </div>
 { controlsauth &&  <div onClick={()=>{docupload()}} className="bg-slate-700 active:bg-slate-800 w-[90%] flex justify-center items-center py-3 rounded-lg shadow-2xl">

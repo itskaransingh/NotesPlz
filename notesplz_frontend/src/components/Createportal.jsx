@@ -4,10 +4,14 @@ import { client } from "../client";
 import vid from "../assets/Pexels Videos 3541.mp4";
 import { userls } from "../utils/sanityqueries";
 import { v4 as uuidv4 } from "uuid";
+import Loader from "./Loader";
 
 const Createportal = () => {
 const [pname, setPname] = useState('')
 const [isallfields, setIsallfields] = useState(true);
+const [loading, setLoading] = useState(false)
+
+
 const navigate = useNavigate()
 
 const user = userls()
@@ -20,6 +24,7 @@ const aftercphandler = (cp)=> {
 
 const createportalhandler = () => {
   // console.log(user)
+  setLoading(true)
   if (pname != '' ) {
      const doc ={
       _type:'portals',
@@ -34,7 +39,7 @@ const createportalhandler = () => {
         _ref:user?._id
       },]
      }
-     client.create(doc).then((res)=>(aftercphandler(res)))
+     client.create(doc).then((res)=>{aftercphandler(res), setLoading(false)})
   } else {
     console.log('eeee')
     setIsallfields(false);
@@ -55,7 +60,7 @@ const createportalhandler = () => {
         />
         <div className="absolute bg-blackOverlay flex flex-col justify-center  box-border items-center top-0 bottom-0 right-0 left-0">
 
-            <div className=" flex justify-center items-center box-border gap-2 flex-col w-3/4">
+          { !loading ? <div className=" flex justify-center items-center box-border gap-2 flex-col w-3/4">
               <div className="text-yellow-300 font-bold text-4xl pb-5">
                 NotesPlz
               </div>
@@ -89,7 +94,9 @@ const createportalhandler = () => {
                 </Link>
               </div>
             </div>
-          
+          :  <div className='text-4xl '>
+          <Loader beat white />
+          </div>}
         </div>
       </div>
     </div>

@@ -106,7 +106,7 @@ useEffect(()=>{
 
         <div className="w-full h-24 px-3 flex-col border-b-2 flex justify-center">
           <div className="text-lg">Creator</div>
-          <div className="text-2xl">{admindata[0].username }</div>
+          <div className="text-2xl">{admindata[0]?.username }</div>
         </div>
 
         <div className="w-full h-fit flex-col gap-1 px-3 border-b-2 flex justify-center py-3">

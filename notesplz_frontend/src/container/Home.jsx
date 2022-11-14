@@ -78,11 +78,11 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
           />
         </div>
         <div className="md:hidden flex flex-col ">
-          <div className=" justify-between flex items-center h-14 sticky top-0 px-2 bg-teal-300 dark:bg-[#0F0F0F]">
+          <div className=" justify-between flex items-center h-14 sticky top-0 px-2 bg-[#3c4e75] dark:bg-[#0F0F0F]">
             <div className="dark:text-[#AAAAAA]" onClick={() => settoggle(true)}>
               <AiOutlineMenuUnfold fontSize={30} />
             </div>
-            <div className="text-2xl dark:text-yellow-500">NotesPlz</div>
+            <div className="text-2xl text-yellow-500">NotesPlz</div>
             <div className="w-10 flex justify-center dark:text-[#AAAAAA]" onClick={(e)=>{localStorage.theme == 'dark'?(localStorage.theme='light',setIsdark(false)):(localStorage.theme='dark',setIsdark(true))}}>
               {
                 isdark ? <BsFillMoonStarsFill fontSize={25}/> : <FaSun fontSize={30}/>
