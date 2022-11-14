@@ -1,8 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content:["./src/**/*.{js,jsx}"],
+  darkMode:'class',
   theme: {
     extend: {
+      backgroundColor: {
+        mainColor: '#FBF8F9',
+        secondaryColor: '#F0F0F0',
+        blackOverlay: 'rgba(0, 0 ,0 ,0.7)',
+      },
       keyframes: {
         'slide-in': {
           '0%': {
