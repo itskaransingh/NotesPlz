@@ -290,7 +290,7 @@ const Fieldpart = ({
                         <>
                           <div
                             key={sffkey}
-                            className="flex w-full dark:bg-gray-800  px-3 py-1 pl-8 bg-slate-300 justify-between items-center"
+                            className="flex w-full dark:bg-gray-800 dark:border-gray-700 border-b  px-3 py-1 pl-8 bg-slate-300 justify-between items-center"
                             onClick={() => {
                               ff3
                                 ? (setparentidff(sffkey),

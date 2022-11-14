@@ -61,7 +61,7 @@ const Sidebar = ({
     <div className="">
       <div className="flex flex-col ">
         <div className="flex justify-between border-b-4 border-black py-3 px-2 items-center">
-          <div className="break-words font-bold">{portal?.pname}</div>
+          <div className="break-words text-xl font-bold">{portal?.pname}</div>
         { controlsauth && <div
             onClick={() => {
               navigate("settings"), settoggle(false);
@@ -91,7 +91,7 @@ const Sidebar = ({
           {fiia("0") && controlsauth && (
             <form
               onSubmit={initailchannelcreater}
-              className=" border dark:border-none px-3 py-0.5 dark:bg-[#000000] rounded-sm"
+              className=" border  dark:border-none px-3 py-0.5 m-1 dark:bg-[#000000] rounded-sm"
             >
               <input
                 type="text"

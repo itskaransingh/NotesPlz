@@ -10,19 +10,19 @@ export default {
         },
          {
             type:'string',
-            name:'fieldid',
-            title:'Field Id'
+            name:'pid',
+            title:'Parent Id'
          },
          {
             type:'array',
-            name:'subfields',
-            Title:'Subfields',
-            of:[{type:'field'}],
+            name:'docoff',
+            title:'Docs',
+            of:[{type:'docked'}]
          },
          {
-            type:'array',
-            name:'file',
-            Title:'Files',
-            of:[{type:'content'}]
+            type:'boolean',
+            name:'ffield',
+            title:'file field',
+            initialValue:false
          }
     ]}

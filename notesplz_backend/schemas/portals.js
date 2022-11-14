@@ -31,5 +31,11 @@ export default {
         title:'Fields',  
         of:[{type:'field'}]
     },
+    {
+        type:'array',
+        name:'docs',
+        title:'Docs',  
+        of:[{type:'docked'}]
+    },
     ]
 }

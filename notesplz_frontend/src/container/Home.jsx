@@ -39,7 +39,7 @@ const user = userls()
   // }, [parentidff]);
 
 useEffect(()=>{
- 
+  localStorage.theme='dark'; 
   localStorage.theme == 'dark' ? setIsdark(true) : setIsdark(false)
 },[])
 
@@ -130,7 +130,7 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
 
         <div className="flex-[0.7]">
           <Routes>
-            <Route index element={<Landingpage />} />
+            <Route index element={<Landingpage controlsauth={scfa}/>} />
             <Route path="docs/:pid">
               <Route
                 index

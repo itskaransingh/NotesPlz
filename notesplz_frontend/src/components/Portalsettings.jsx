@@ -20,7 +20,20 @@ const Portalsettings = ({ portal, setPortal,setAdmindata,admindata }) => {
 const navigate = useNavigate()
   const adminarray = [];
 
+useEffect(()=>{
+  
+  portal?.admins?.map((d)=>(
+    client.fetch(adminQuery(d?._ref)).then((res)=>{
+      console.log('done')
+      adminarray.push(res[0])
+      setAdmindata(adminarray)
+    })
+    ))
+    
 
+  console.log('shss')
+ 
+},[])
 
   // const nedit=()=>{
   //   if(newname != ''){
@@ -66,8 +79,8 @@ const navigate = useNavigate()
   };
 
   return (
-    <div>
-      <div className="flex flex-col justify-center items-center">
+    <div className="dark:bg-[#181818] dark:text-[#ffffff]  min-h-screen">
+      <div className="flex flex-col justify-center  items-center">
         <div className="flex jusstify-center gap-2 mt-3 items-center">
           <div className="text-xl ">Portal Name</div>
           {/* <div onClick={() => setNameedit(!nameedit)}>
@@ -93,7 +106,7 @@ const navigate = useNavigate()
 
         <div className="w-full h-24 px-3 flex-col border-b-2 flex justify-center">
           <div className="text-lg">Creator</div>
-          <div className="text-2xl">{admindata[0]?.username}</div>
+          <div className="text-2xl">{admindata[0].username }</div>
         </div>
 
         <div className="w-full h-fit flex-col gap-1 px-3 border-b-2 flex justify-center py-3">

@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 import { docQuery } from "../utils/sanityqueries";
 
 
-const Contentcreater = ({parentidff,setparentidff,setAlldocs,settoggle}) => {
+const Contentcreater = ({parentidff,setparentidff,controlsauth,setAlldocs,settoggle}) => {
   const [isfile, setisfile] = useState(true);
   const [uploadeddoc, setUploadeddoc] = useState(null);
   const [uploadedimg, setUploadedimg] = useState(null);
@@ -208,7 +208,7 @@ const docupload = () =>{
             )
           ) : (
             uploadedimg == null ? (
-              <label htmlFor="img" className="w-full cursor-pointer">
+              <label htmlFor="img" className="w-full md:cursor-pointer">
                 <div className="flex flex-col gap-3">
                   <div className="flex flex-col justify-center items-center  ">
                     <div className="text-gray-500">
@@ -276,9 +276,9 @@ const docupload = () =>{
             className="text-lg p-2 outline-none rounded-lg border"
           />
         </div>
-        <div onClick={()=>{docupload()}} className="bg-slate-700 active:bg-slate-800 w-[90%] flex justify-center items-center py-3 rounded-lg shadow-2xl">
+{ controlsauth &&  <div onClick={()=>{docupload()}} className="bg-slate-700 active:bg-slate-800 w-[90%] flex justify-center items-center py-3 rounded-lg shadow-2xl">
           <AiOutlineCloudUpload color="lightblue" fontSize={35} />
-        </div>
+        </div>}
       </div>
     </div>
   );

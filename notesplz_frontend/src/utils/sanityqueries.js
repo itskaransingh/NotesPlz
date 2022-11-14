@@ -24,14 +24,15 @@ export const pawQuery = (id) => {
 
 export const docQuery = (id, portalid) => {
   const query = `*[_type == 'doc' && pid == '${id}' && paw == '${portalid}'] | order(_createdAt desc){
+        _id,
         _key,
         title,
         caption,
         file{
-            asset->{url},
+            asset->{url,_id},
         },
         image{
-            asset->{url},
+            asset->{url,_id},
         },
     }`;
   return query;
@@ -48,7 +49,7 @@ export const landingQuery = (portalid) => {
         image{
             asset->{url},
         },
-    }`;
+    }[0...4]`;
   return query;
 };
 
